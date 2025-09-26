@@ -1,3 +1,2 @@
 # ignore none-essential files and folders
 node_modules/
-.env
