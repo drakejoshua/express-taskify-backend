@@ -13,7 +13,7 @@ import helmet from 'helmet'
 
 // create express server and import port number
 const server = express()
-const SERVER_PORT = process.env.PORT
+const SERVER_PORT = process.env.PORT || 7000
 
 // connect to DB
 connectDB()
