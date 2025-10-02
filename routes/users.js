@@ -42,7 +42,7 @@ router.post('/register-user',
     .isEmail().normalizeEmail().withMessage(error_def.INVALID_EMAIL).bail(),
     body('password').exists().withMessage( error_def.INVALID_PASSWORD ).bail()
     .isLength({ min: 6 }).withMessage(error_def.INVALID_PASSWORD_LENGTH).bail(),
-    body('name').isAlphanumeric().withMessage(error_def.INVALID_NAME).bail(),  
+    body('name').isString().withMessage(error_def.INVALID_NAME).bail(),  
     async function( req, res, next ) {
         const errors = validationResult( req )
         const emailRedirectURL = decodeURIComponent(req.query.emailredirect)
@@ -82,16 +82,18 @@ router.post('/register-user',
         let profilePublicId = ''
 
         // upload user profile-photo and get the public URL
-        try {
-            const uploadResult =  await cloudinaryUpload( req.file.buffer )
+        if ( req.file ) {
+            try {
+                const uploadResult =  await cloudinaryUpload( req.file.buffer )
 
-            profilePublicId = uploadResult.public_id
-            profilePublicURL = uploadResult.url
+                profilePublicId = uploadResult.public_id
+                profilePublicURL = uploadResult.url
 
-        } catch( error ) {
-            error.errorCode = error_def.ERROR_FILE_UPLOAD
-            error.statusCode = 500
-            return next( error )
+            } catch( error ) {
+                error.errorCode = error_def.ERROR_FILE_UPLOAD
+                error.statusCode = 500
+                return next( error )
+            }
         }
 
 
@@ -114,8 +116,8 @@ router.post('/register-user',
                 password: hashedPassword,
                 name: newUserName,
                 provider: 'email',
-                profileURL: profilePublicURL,
-                profileId: profilePublicId,
+                profileURL: profilePublicURL || "https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1906669723.jpg",
+                profileId: profilePublicId || "",
                 emailVerificationToken: emailVerificationToken,
                 emailVerificationExpiry: emailVerificationExpiry
             })
@@ -498,8 +500,8 @@ router.post('/forgot-password/:token', [
             userToResetPassword.passwordResetExpiry = null
 
             // generate new refresh and access token for user auth
-            const accessToken = generateAccessToken()
-            const refreshToken = generateRefreshToken()
+            const accessToken = generateAccessToken( userToResetPassword._id )
+            const refreshToken = generateRefreshToken( userToResetPassword._id )
 
             // update user with the access and refresh tokens
             userToResetPassword.refreshToken = refreshToken
@@ -774,7 +776,7 @@ router.get("/google/callback",
 
                 // generate access and refresh tokens for new user
                 const accessToken = generateAccessToken( newUserData._id )
-                const refreshToken = generateAccessToken( newUserData._id )
+                const refreshToken = generateRefreshToken( newUserData._id )
 
                 // update new user data with refresh token
                 newUserData.refreshToken = refreshToken
