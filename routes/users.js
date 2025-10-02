@@ -755,7 +755,7 @@ router.get("/google/callback",
                 await authUser.save()
 
                 // since no errors, redirect back to frontend with auth tokens
-                res.redirect(`${ "https://drakejoshua.github.io/express-taskify-frontend/#/auth/google" }?a=${ accessToken }&r=${ refreshToken }`)
+                res.redirect(`${ redirect }?a=${ accessToken }&r=${ refreshToken }`)
             } else {
                 // add new user data to database
                 const newUserData = await User.create({
@@ -783,7 +783,7 @@ router.get("/google/callback",
                 await newUserData.save()
 
                 // since no errors, send success response with new user data
-                res.redirect(`${ "https://drakejoshua.github.io/express-taskify-frontend/#/auth/google" }?a=${ accessToken }&r=${ refreshToken }`)
+                res.redirect(`${ redirect }?a=${ accessToken }&r=${ refreshToken }`)
             }
         } catch ( err ) {
             err.errorCode = error_def.SERVER_ERROR
