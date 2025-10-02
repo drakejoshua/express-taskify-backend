@@ -123,19 +123,7 @@ router.post('/register-user',
             })
             
             // send verification email
-            const verificationEmail = `
-                <h1>
-                    Confirm Your Signup
-                </h1>
-                <p>
-                    Hello, Welcome to the Tasks App. Finish Your Registration
-                    using the link below
-                </p>
-                <a href="${ emailRedirectURL }${emailVerificationToken}">
-                    Finish Your Signup
-                </a>
-            `
-            await sendMail( newUserEmail, 'Confirm Your Signup', verificationEmail )
+            await sendVerificationEmail( newUserEmail, emailVerificationToken, emailRedirectURL )
 
             // send success response since no errors
             res.status( 201 ).json({
