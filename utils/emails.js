@@ -14,7 +14,8 @@ async function sendVerificationEmail( email, emailVerificationToken, emailRedire
             Finish Your Signup
         </a>
     `
-    return sendMail( email, 'Confirm Your Signup', verificationEmail )
+    // return sendMail( email, 'Confirm Your Signup', verificationEmail )
+    return true
 }
 
 async function sendPasswordResetEmail( email, passwordResetToken, passwordResetRedirectURL ) {
@@ -35,7 +36,8 @@ async function sendPasswordResetEmail( email, passwordResetToken, passwordResetR
             Reset your password
         </a>
     `
-    return sendMail( email, 'Reset Your Password', passwordResetEmail )
+    // return sendMail( email, 'Reset Your Password', passwordResetEmail )
+    return true
 }
 
 async function sendMagicLinkEmail( email, magicLinkToken, magicLinkRedirectURL ) {
@@ -56,7 +58,8 @@ async function sendMagicLinkEmail( email, magicLinkToken, magicLinkRedirectURL )
             sign in your account
         </a>
     `
-    return sendMail( email, 'Sign In To Your Account', magicLinkEmail )
+    // return sendMail( email, 'Sign In To Your Account', magicLinkEmail )
+    return true
 }
 
 export { sendVerificationEmail, sendPasswordResetEmail, sendMagicLinkEmail }
