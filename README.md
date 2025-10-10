@@ -1,3 +1,136 @@
+# 🧩 Welcome to the Tasks Backend
+
+Welcome to the official backend of the **Tasks App**, a modern task management system built with **Node.js**, **Express**, and **MongoDB**.  
+This backend powers all authentication, authorization, and task management functionalities used by the Tasks frontend client.
+
+---
+
+## 🚀 Overview
+
+The **Tasks Backend** provides a clean and secure RESTful API for user authentication and task management.  
+It’s designed to demonstrate best practices in backend architecture — including modular route organization, JWT authentication, OAuth integration, and robust error handling.
+
+This repository is divided into two main sections:
+
+1. **Authentication & User Management**  
+   Handles everything related to user accounts, including registration, login, password resets, email verification, and Google OAuth.
+
+2. **Task Management API**  
+   Handles CRUD operations for user tasks, complete with rate limiting, validation, and authorization checks.
+
+---
+
+## 🧱 Core Features
+
+- **JWT Authentication & Refresh Tokens**  
+  Securely manage access and refresh tokens for each user session.
+
+- **Email Verification & Password Reset Flows**  
+  Built-in verification and reset links sent via email.
+
+- **Magic Link & Google OAuth Login**  
+  Login without a password or with your Google account.
+
+- **Rate Limiting**  
+  Prevents abuse by restricting request frequency per user/IP.
+
+- **Clean REST Architecture**  
+  Predictable endpoints with clear request/response structures.
+
+- **CORS, Helmet & Secure Headers**  
+  Ensures cross-origin safety and general backend security.
+
+---
+
+## ⚙️ Tech Stack
+
+| Category | Technology |
+|-----------|-------------|
+| **Runtime** | Node.js |
+| **Framework** | Express.js |
+| **Database** | MongoDB with Mongoose |
+| **Authentication** | Passport.js & JWT |
+| **Email Service** | Nodemailer |
+| **Hosting** | Render |
+| **Rate Limiting** | express-rate-limit |
+| **Validation** | express-validator |
+| **File Uploads** | Multer |
+
+---
+
+## 📖 Documentation Structure
+
+This README is organized into the following parts:
+
+1. **Auth Endpoints Documentation** – Covers all authentication routes such as registration, verification, login, and OAuth.
+2. **Tasks Endpoints Documentation** – Covers all CRUD routes for task management.
+
+Each section provides:
+- Endpoint URL and method  
+- Description and parameters  
+- Expected request body  
+- Example responses and status codes  
+
+---
+
+## 🔐 Base URLs
+
+All routes in this backend are hosted live on **Render**:
+
+- **Auth Endpoints:**  
+  `https://express-taskify-backend.onrender.com/auth`
+
+- **Task Endpoints:**  
+  `https://express-taskify-backend.onrender.com/api/tasks`
+
+Each endpoint follows REST conventions and requires authentication where specified.
+
+---
+
+## 🧭 Getting Started (For Developers)
+
+To run this project locally:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/your-username/express-taskify-backend.git
+cd express-taskify-backend
+
+# 2. Install dependencies
+npm install
+
+# 3. Create an .env file
+touch .env
+
+# env contents
+# 🔑 Database Configuration
+MONGO_URI=<your-mongodb-connection-string>
+
+# 🔒 JWT Configuration
+JWT_SECRET=<your-jwt-secret>
+ACCESS_TOKEN_EXPIRY=<access-token-expiry>     # e.g., 15m
+REFRESH_TOKEN_EXPIRY=<refresh-token-expiry>   # e.g., 7d
+
+# 📧 Email Configuration
+GMAIL_AUTH_PASS=<your-google-app-password>
+
+# ☁️ Cloudinary Configuration
+CLOUDINARY_CLOUD_NAME=<your-cloudinary-cloud-name>
+CLOUDINARY_API_KEY=<your-cloudinary-api-key>
+CLOUDINARY_API_SECRET=<your-cloudinary-api-secret>
+CLOUDINARY_URL=<your-cloudinary-url>
+
+# 🌐 Google OAuth Configuration
+GOOGLE_CLIENT_ID=<your-google-client-id>
+GOOGLE_CLIENT_SECRET=<your-google-client-secret>
+GOOGLE_CALLBACK_URL=<your-google-callback-url>
+
+# 4. start the server
+npm run dev
+```
+
+
+
 # Tasks Backend Auth Endpoints Documentation
 
 This section of the documentation provides a summary of all available auth endpoints in the authentication and user management code of the backend.
